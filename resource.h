@@ -6,7 +6,6 @@
 #define IDP_SOCKETS_INIT_FAILED         103
 #define IDR_MAINFRAME                   128
 #define IDC_VALUE_EDIT                  1000
-#define IDC_SEND_BUTTON                 1001
 #define IDC_SEND_BTN                    1001
 
 // Next default values for new objects

@@ -31,6 +31,7 @@ void CValueClientDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CValueClientDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_SEND_BTN, &CValueClientDlg::OnBnClickedSendBtn)
 END_MESSAGE_MAP()
 
 
@@ -45,7 +46,8 @@ BOOL CValueClientDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 큰 아이콘을 설정합니다.
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
-	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	m_client.Create();
+	m_client.Connect(L"192.168.0.8", 26001);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -86,3 +88,10 @@ HCURSOR CValueClientDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CValueClientDlg::OnBnClickedSendBtn()
+{
+	int value = GetDlgItemInt(IDC_VALUE_EDIT);
+	m_client.Send(&value, sizeof(int));
+}
