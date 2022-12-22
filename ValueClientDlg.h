@@ -15,6 +15,12 @@ private:
 public:
 	CValueClientDlg(CWnd* pParent = nullptr);	// 표준 생성자입니다.
 
+	void AddEventString(const wchar_t* ap_string)
+	{
+		int index = m_event_list.InsertString(-1, ap_string);
+		m_event_list.SetCurSel(index);
+	}
+
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_VALUECLIENT_DIALOG };
@@ -35,4 +41,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedSendBtn();
+	CListBox m_event_list;
+	afx_msg void OnBnClickedOk();
 };

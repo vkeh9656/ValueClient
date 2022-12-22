@@ -26,12 +26,14 @@ CValueClientDlg::CValueClientDlg(CWnd* pParent /*=nullptr*/)
 void CValueClientDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EVENT_LIST, m_event_list);
 }
 
 BEGIN_MESSAGE_MAP(CValueClientDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_SEND_BTN, &CValueClientDlg::OnBnClickedSendBtn)
+	ON_BN_CLICKED(IDOK, &CValueClientDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -94,6 +96,7 @@ void CValueClientDlg::OnBnClickedSendBtn()
 {
 	CString str;
 	GetDlgItemText(IDC_VALUE_EDIT, str);
+	SetDlgItemText(IDC_VALUE_EDIT, L"");
 	
 	unsigned int data_size = (str.GetLength() + 1) * 2;
 	char* p_send_data = new char[sizeof(unsigned int) + data_size]; // 선두 4바이트에는 실제 데이터의 길이를 넣어주기위함.
@@ -104,4 +107,11 @@ void CValueClientDlg::OnBnClickedSendBtn()
 	m_client.Send(p_send_data, sizeof(unsigned int) + data_size);
 
 	delete[] p_send_data;
+}
+
+
+void CValueClientDlg::OnBnClickedOk()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	// CDialogEx::OnOK();
 }

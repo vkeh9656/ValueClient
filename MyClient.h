@@ -4,6 +4,10 @@
 
 class MyClient : public CSocket
 {
+private:
+	char m_is_header = 1;
+	unsigned int m_data_size;
+
 public:
 	MyClient();
 	virtual ~MyClient();
