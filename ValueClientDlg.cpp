@@ -92,6 +92,16 @@ HCURSOR CValueClientDlg::OnQueryDragIcon()
 
 void CValueClientDlg::OnBnClickedSendBtn()
 {
-	int value = GetDlgItemInt(IDC_VALUE_EDIT);
-	m_client.Send(&value, sizeof(int));
+	CString str;
+	GetDlgItemText(IDC_VALUE_EDIT, str);
+	
+	unsigned int data_size = (str.GetLength() + 1) * 2;
+	char* p_send_data = new char[sizeof(unsigned int) + data_size]; // 선두 4바이트에는 실제 데이터의 길이를 넣어주기위함.
+	
+	*(unsigned int*)p_send_data = data_size;
+	memcpy(p_send_data + sizeof(unsigned int), str.GetBuffer(), data_size);
+	
+	m_client.Send(p_send_data, sizeof(unsigned int) + data_size);
+
+	delete[] p_send_data;
 }
